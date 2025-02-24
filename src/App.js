@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import ReportPage from './components/ReportPage';
 import ReportBoard from './components/ReportBoard';
+import ZKProofCheck from './components/ZKProofCheck';
+import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 function App() {
@@ -66,11 +68,23 @@ mitre_attack:
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/verify" element={<ZKProofCheck />} />
           <Route 
             path="/report" 
-            element={<ReportPage onSubmit={handleFormSubmit} yamlData={yamlData} />} 
+            element={
+              <ProtectedRoute>
+                <ReportPage onSubmit={handleFormSubmit} yamlData={yamlData} />
+              </ProtectedRoute>
+            } 
           />
-          <Route path="/board" element={<ReportBoard />} />
+          <Route 
+            path="/board" 
+            element={
+              <ProtectedRoute>
+                <ReportBoard />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
       </div>
     </Router>

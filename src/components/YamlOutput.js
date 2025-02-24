@@ -1,10 +1,13 @@
 import React from 'react';
+import './YamlOutput.css';
 
-function YamlOutput({ yamlData }) {
+function YamlOutput({ yaml }) {
   return (
     <div className="yaml-output">
-      <h2></h2>
-      <pre>{yamlData}</pre>
+      <h2>YAML Output</h2>
+      <pre>
+        <code>{yaml}</code>
+      </pre>
     </div>
   );
 }

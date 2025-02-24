@@ -1,0 +1,17 @@
+.yaml-output {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.yaml-output pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.yaml-output code {
+  font-family: monospace;
+  font-size: 14px;
+} 
