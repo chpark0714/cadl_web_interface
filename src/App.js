@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainPage from './components/MainPage';
+import ReportPage from './components/ReportPage';
+import ReportBoard from './components/ReportBoard';
 import './App.css';
-import AttackReportForm from './components/AttackReportForm';
-import YamlOutput from './components/YamlOutput';
 
 function App() {
   const [yamlData, setYamlData] = useState('');
@@ -60,13 +62,18 @@ mitre_attack:
   };
 
   return (
-    <div className="App">
-      <h1>Cyber Attack Report YAML Converter</h1>
-      <div className="container">
-        <AttackReportForm onSubmit={handleFormSubmit} />
-        <YamlOutput yamlData={yamlData} />
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route 
+            path="/report" 
+            element={<ReportPage onSubmit={handleFormSubmit} yamlData={yamlData} />} 
+          />
+          <Route path="/board" element={<ReportBoard />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
