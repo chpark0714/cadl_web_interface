@@ -51,4 +51,53 @@
   .yaml-section {
     position: static;
   }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ipfs-button {
+  padding: 10px 20px;
+  background-color: #6e56cf;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.ipfs-button:hover:not(:disabled) {
+  background-color: #5a46ac;
+}
+
+.ipfs-button:disabled {
+  background-color: #a499d1;
+  cursor: not-allowed;
+}
+
+.cid-display {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.cid-display p {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+}
+
+.cid-display code {
+  display: block;
+  padding: 8px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: monospace;
+  word-break: break-all;
 } 
