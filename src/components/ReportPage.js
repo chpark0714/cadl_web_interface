@@ -9,26 +9,41 @@ function ReportPage() {
   const navigate = useNavigate();
 
   const handleFormSubmit = (formData) => {
-    // YAML 형식으로 변환
     const yaml = `# Cyber Attack Report
-attack_name: ${formData.attackName}
+# Header Information
+report_id: ${formData.reportId}
+data_analyst: ${formData.dataAnalyst}
 datetime: ${formData.datetime}
-severity: ${formData.severity}
-analyst: ${formData.analyst}
 
 # Attack Details
+attack_name: ${formData.attackName}
 attack_type: ${formData.attackType}
-attack_vector: ${formData.attackVector}
-target_systems: ${formData.targetSystems}
+severity_level: ${formData.severityLevel}
+discovered_date: ${formData.discoveredDate}
+affected_system: ${formData.affectedSystem}
 
-# Impact Assessment
-affected_systems: ${formData.affectedSystems}
-data_impact: ${formData.dataImpact}
-business_impact: ${formData.businessImpact}
+# Behavioral Description
+system_behavior: ${formData.systemBehavior}
+network_behavior: ${formData.networkBehavior}
+
+# Sysmon Data
+event_id: ${formData.eventId}
+process: ${formData.process}
+file: ${formData.file}
+registry: ${formData.registry}
+sysmon_network: ${formData.sysmonNetwork}
+
+# Suricata Alerts
+alert_id: ${formData.alertId}
+signature: ${formData.signature}
+ip_address: ${formData.ip}
+timestamp: ${formData.timestamp}
 
 # Technical Details
-indicators:
-  - ${formData.indicators}
+hash: ${formData.hash}
+code: ${formData.code}
+trigger: ${formData.trigger}
+indicators: ${formData.indicators}
 malware_used: ${formData.malwareUsed}
 vulnerabilities: ${formData.vulnerabilities}
 
@@ -37,6 +52,19 @@ initial_response: ${formData.initialResponse}
 containment_measures: ${formData.containmentMeasures}
 eradication_steps: ${formData.eradicationSteps}
 
+# Detection and Mitigation
+detection_method: ${formData.detectionMethod}
+
+# Additional Findings
+related_incident: ${formData.relatedIncident}
+indicators_of_compromise: ${formData.ioc}
+
+# MITRE ATT&CK Framework
+mitre_tactic: ${formData.mitreTactic}
+mitre_technique: ${formData.mitreTechnique}
+mitre_sub_technique: ${formData.mitreSubTechnique || 'N/A'}
+mitre_technique_id: ${formData.mitreId}
+
 # Recommendations
 prevention_measures: ${formData.preventionMeasures}
 security_improvements: ${formData.securityImprovements}
@@ -44,6 +72,7 @@ security_improvements: ${formData.securityImprovements}
 # Additional Notes
 notes: ${formData.notes || 'No additional notes'}`;
 
+    console.log("Generated YAML:", yaml); // 디버깅용
     setYamlData(yaml);
   };
 
@@ -53,17 +82,13 @@ notes: ${formData.notes || 'No additional notes'}`;
       return;
     }
 
-    // localStorage에 저장된 reports 배열 가져오기
     const existingReports = JSON.parse(localStorage.getItem('reports') || '[]');
-    
-    // 새 리포트 객체 생성
     const newReport = {
       id: Date.now(),
       date: new Date().toISOString(),
       content: yamlData
     };
 
-    // 새 리포트 추가
     const updatedReports = [...existingReports, newReport];
     localStorage.setItem('reports', JSON.stringify(updatedReports));
 
@@ -72,17 +97,21 @@ notes: ${formData.notes || 'No additional notes'}`;
   };
 
   return (
-    <div className="report-container">
+    <div className="report-page">
       <h1>Create Attack Report</h1>
-      <AttackReportForm onSubmit={handleFormSubmit} />
-      {yamlData && (
-        <div className="yaml-section">
-          <YamlOutput yaml={yamlData} />
-          <button onClick={handleUpload} className="upload-button">
-            Upload to Board
-          </button>
+      <div className="report-content">
+        <div className="form-section">
+          <AttackReportForm onSubmit={handleFormSubmit} />
         </div>
-      )}
+        {yamlData && (
+          <div className="yaml-section">
+            <YamlOutput yaml={yamlData} />
+            <button onClick={handleUpload} className="upload-button">
+              Upload to Board
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

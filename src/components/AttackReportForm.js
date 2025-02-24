@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './AttackReportForm.css';
 import { parseSysmonLog, parseSuricataLog } from '../utils/logParser';
 import { MITRE_TACTICS, MITRE_TECHNIQUES } from '../utils/mitreData';
 
@@ -32,13 +33,22 @@ function AttackReportForm({ onSubmit }) {
     mitreTactic: '',
     mitreTechnique: '',
     mitreSubTechnique: '',
-    mitreId: ''
+    mitreId: '',
+    indicators: '',
+    malwareUsed: '',
+    vulnerabilities: '',
+    initialResponse: '',
+    containmentMeasures: '',
+    eradicationSteps: '',
+    preventionMeasures: '',
+    securityImprovements: '',
+    notes: ''
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
+    setFormData(prevState => ({
+      ...prevState,
       [name]: value
     }));
   };
@@ -296,6 +306,108 @@ function AttackReportForm({ onSubmit }) {
       </div>
 
       <div className="form-section">
+        <h2>Technical Details</h2>
+        <div className="form-group">
+          <label htmlFor="indicators">Indicators:</label>
+          <textarea
+            id="indicators"
+            name="indicators"
+            value={formData.indicators}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="malwareUsed">Malware Used:</label>
+          <textarea
+            id="malwareUsed"
+            name="malwareUsed"
+            value={formData.malwareUsed}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="vulnerabilities">Vulnerabilities:</label>
+          <textarea
+            id="vulnerabilities"
+            name="vulnerabilities"
+            value={formData.vulnerabilities}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="form-section">
+        <h2>Response Details</h2>
+        <div className="form-group">
+          <label htmlFor="initialResponse">Initial Response:</label>
+          <textarea
+            id="initialResponse"
+            name="initialResponse"
+            value={formData.initialResponse}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="containmentMeasures">Containment Measures:</label>
+          <textarea
+            id="containmentMeasures"
+            name="containmentMeasures"
+            value={formData.containmentMeasures}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="eradicationSteps">Eradication Steps:</label>
+          <textarea
+            id="eradicationSteps"
+            name="eradicationSteps"
+            value={formData.eradicationSteps}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="form-section">
+        <h2>Recommendations</h2>
+        <div className="form-group">
+          <label htmlFor="preventionMeasures">Prevention Measures:</label>
+          <textarea
+            id="preventionMeasures"
+            name="preventionMeasures"
+            value={formData.preventionMeasures}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="securityImprovements">Security Improvements:</label>
+          <textarea
+            id="securityImprovements"
+            name="securityImprovements"
+            value={formData.securityImprovements}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="form-section">
+        <h2>Additional Notes</h2>
+        <div className="form-group">
+          <label htmlFor="notes">Notes:</label>
+          <textarea
+            id="notes"
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="form-section">
         <h3>Detection and Mitigation</h3>
         <textarea
           name="detectionMethod"
@@ -386,7 +498,7 @@ function AttackReportForm({ onSubmit }) {
         )}
       </div>
 
-      <button type="submit">Convert to YAML</button>
+      <button type="submit" className="submit-button">Convert to YAML</button>
     </form>
   );
 }
