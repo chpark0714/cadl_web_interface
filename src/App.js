@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import ReportPage from './components/ReportPage';
 import ReportBoard from './components/ReportBoard';
@@ -65,28 +65,57 @@ mitre_attack:
 
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/verify" element={<ZKProofCheck />} />
-          <Route 
-            path="/report" 
-            element={
-              <ProtectedRoute>
-                <ReportPage onSubmit={handleFormSubmit} yamlData={yamlData} />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/board" 
-            element={
-              <ProtectedRoute>
-                <ReportBoard />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={
+          <div className="app-container">
+            <div className="content-container">
+              <header className="header">
+                <h1>Cyber Attack YAML Converter</h1>
+                <p>
+                  Easily convert and manage cyber attack data in YAML format.
+                  Use this tool to document attack patterns in a structured format
+                  and efficiently process data for security analysis.
+                </p>
+                <p className="sub-text">
+                  Transform your cyber attack information into standardized YAML files
+                  for better organization and analysis.
+                </p>
+              </header>
+              
+              <div className="buttons-container">
+                <Link to="/report">
+                  <button className="action-button primary-button">
+                    Start Converting
+                  </button>
+                </Link>
+                <Link to="/board">
+                  <button className="action-button secondary-button">
+                    View History
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        } />
+        <Route path="/input" element={<MainPage />} />
+        <Route 
+          path="/report" 
+          element={
+            <ProtectedRoute>
+              <ReportPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/board" 
+          element={
+            <ProtectedRoute>
+              <ReportBoard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="/verify" element={<ZKProofCheck />} />
+      </Routes>
     </Router>
   );
 }

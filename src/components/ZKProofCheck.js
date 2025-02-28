@@ -89,15 +89,19 @@ function ZKProofCheck() {
 
   return (
     <div className="zkproof-container">
-      <h2>ZK Proof Verification Required</h2>
-      <p>Please verify your identity to continue.</p>
-      <button 
-        onClick={verifyProof} 
-        disabled={isVerifying}
-        className={isVerifying ? 'verifying' : ''}
-      >
-        {isVerifying ? 'Verifying...' : 'Verify ZK Proof'}
-      </button>
+      <div className="zkproof-content">
+        <h2>ZK Proof Verification</h2>
+        <div className="verification-section">
+          <p>Verify your zero-knowledge proof here</p>
+          <button 
+            onClick={verifyProof} 
+            disabled={isVerifying}
+            className={isVerifying ? 'verifying' : ''}
+          >
+            {isVerifying ? 'Verifying...' : 'Verify ZK Proof'}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
